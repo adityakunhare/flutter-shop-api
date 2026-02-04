@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Product extends Model
+{
+
+    public function sizes(): HasMany
+    {
+        return $this->hasMany(ProductSize::class);
+    } 
+
+    public function colors(): HasMany
+    {
+        return $this->hasMany(ProductColor::class); 
+    }
+
+}
