@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->integer('number');
+            $table->unique(['product_id', 'number']);
+            $table->index('product_id');
             $table->timestamps();
         });
     }

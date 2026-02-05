@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->string('name'); // color hash code or color name
+            $table->unique(['product_id', 'name']);
+            $table->index('product_id');
             $table->timestamps();
         });
     }

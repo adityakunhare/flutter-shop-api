@@ -7,9 +7,9 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,15 +20,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Storage::disk('public')->deleteDirectory('images');
+        Storage::disk('public')->makeDirectory('images');
+
         $brands = Brand::factory(5)->create();
         $categories = Category::factory(5)->create();
 
-        $products = Product::factory(50)->recycle([
+        $products = Product::factory(1000)->recycle([
             $brands, $categories
         ])->create();
 
-        ProductSize::factory(250)->recycle($products);
-        ProductColor::factory(250)->recycle($products);
+        $productSizes = ['6', '7', '8', '9', '10', '11', '12'];
+        $productColors = [
+            'Black', 'Blue', 'Green','Red', 'White', 'Yellow', 'Gray', 'Pink', 'Purple', 'Orange'
+        ];
 
+        foreach ($products as $product) {
+            foreach ($productSizes as $productSize) {            
+                ProductSize::factory()->create([
+                    'product_id' => $product->id,
+                    'number' => $productSize
+                ]);
+            }
+            foreach($productColors as $productColor){
+                ProductColor::factory()->create([
+                    'product_id' => $product->id,
+                    'name' => $productColor
+                ]);
+            }
+        }
     }
 }

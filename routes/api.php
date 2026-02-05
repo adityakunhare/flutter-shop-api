@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('products', function () {
+Route::prefix('V1')->group(function () {
+
+    Route::get('products', [ProductController::class, 'index']);
     
 });
