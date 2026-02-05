@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
         $brands = Brand::factory(5)->create();
         $categories = Category::factory(5)->create();
 
-        $products = Product::factory(20)->recycle([
+        $products = Product::factory(50)->recycle([
             $brands, $categories
         ])->create();
 
-        ProductSize::factory(100)->recycle($products);
-        ProductColor::factory(100)->recycle($products);
+        ProductSize::factory(250)->recycle($products);
+        ProductColor::factory(250)->recycle($products);
 
     }
 }
