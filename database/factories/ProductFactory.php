@@ -23,7 +23,7 @@ class ProductFactory extends Factory
 
         $image = collect(glob($sourcePath . '/*.*'))->random();
         $extension =  pathinfo($image, PATHINFO_EXTENSION); 
-        $filename = 'images/' . \Illuminate\Support\Str::uuid() . $extension;
+        $filename = "images/". \Illuminate\Support\Str::uuid().".".$extension;
 
         Storage::disk('public')->put($filename, file_get_contents($image));
         

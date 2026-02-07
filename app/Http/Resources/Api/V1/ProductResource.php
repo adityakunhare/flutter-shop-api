@@ -19,7 +19,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                'title' => $this->title,
-               'imageURL' => url($this->image),
+               'imageURL' => url('storage/'.$this->image),
                'price' => $this->price,
                'sizes' => $this->whenLoaded('sizes',fn() => $this->sizes->pluck('number')),
                'colors' => $this->whenLoaded('colors',fn() => $this->colors->pluck('name')),
