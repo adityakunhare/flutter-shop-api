@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
-    public function index(): JsonResource 
+    public function index(): JsonResource
     {
         $cursor = request('cursor', 'first');
         $version = Cache::rememberForever('products_cache_version', fn () => 1);
@@ -22,5 +22,18 @@ class ProductController extends Controller
         );
 
         return ProductResource::collection($products);
+    }
+
+    public function show($productId): ProductResource
+    {
+        return ProductResource::make(
+            Cache::remember(
+                'product_' . $productId,
+                now()->addHours(3),
+                fn () => Product::with(
+                    ['brand', 'category', 'sizes', 'colors']
+                )->find($productId)
+            )
+        );
     }
 }
