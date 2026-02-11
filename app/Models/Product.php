@@ -38,4 +38,18 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeBrandFilter($query, $brand)
+    {
+        return $query->when(request()->brand, function ($query) use ($brand){
+            return $query->where('brand_id', $brand); 
+        });
+    }
+
+    public function scopeCategoryFilter($query, $category)
+    {
+        return $query->when(request()->category, function ($query) use ($category){
+            return $query->where('category_id', $category); 
+        });
+    }
 }
