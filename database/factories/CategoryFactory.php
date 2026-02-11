@@ -17,10 +17,9 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $categories = ['running', 'trekking', 'hiking', 'cycling', 'canoeing', 'fishing'];
 
         return [
-            'name' => Arr::random($categories),
+            'name' => $this->faker->word,
         ];
     }
 }

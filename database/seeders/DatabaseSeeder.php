@@ -24,10 +24,17 @@ class DatabaseSeeder extends Seeder
         Storage::disk('public')->makeDirectory('images');
 
         $brands = Brand::factory(5)->create();
-        $categories = Category::factory(5)->create();
+        $categoryTitles  = ['running', 'trekking', 'hiking', 'cycling', 'canoeing', 'fishing'];
+
+        $categories = []; 
+        foreach ($categoryTitles as $category) {
+            $categories[] = Category::factory()->create([ 
+                'name' => $category
+            ]);
+        }
 
         $products = Product::factory(1000)->recycle([
-            $brands, $categories
+            $brands, collect($categories)
         ])->create();
 
         $productSizes = ['6', '7', '8', '9', '10', '11', '12'];
